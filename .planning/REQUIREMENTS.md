@@ -12,7 +12,7 @@ Requirements for the initial release. Each maps to a roadmap phase.
 - [ ] **SRC-01**: A curated source registry holds one record per monitored source — jurisdiction, layer, authoritative URL/feed, ingestion method, parser/adapter reference, polling cadence, last-checked, last-changed, and health status
 - [ ] **SRC-02**: v1 covers the national layer — Bankruptcy Code (Title 11), Federal Rules of Bankruptcy Procedure, and Official Forms
 - [ ] **SRC-03**: v1 covers an initial tranche of ~3 federal bankruptcy court districts — local rules, standing orders, and general orders
-- [ ] **SRC-04**: v1 covers the state exemption statutes for the states of the tranche districts
+- [ ] **SRC-04**: v1 covers state exemption rules for the launch states only — the states that contain the v1 district tranche
 - [ ] **SRC-05**: Source health monitoring distinguishes "checked, no change" from "checked, error" from "not checked," and alerts internally on staleness or layout drift
 - [ ] **SRC-06**: A new source can be onboarded as a registry/config operation, without a code change
 
