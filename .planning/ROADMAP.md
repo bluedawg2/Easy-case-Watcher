@@ -43,23 +43,23 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — Backend scaffold (uv/FastAPI), Docker Postgres 16, core domain models (Source, Snapshot, Change with separate date fields), lifecycle guard, Alembic migrations
+- [ ] 01-01-PLAN.md — Backend scaffold (uv/FastAPI), Docker Postgres 16, core domain models (Source, Snapshot, Change with separate date fields), lifecycle guard with `summary_failed` state, hand-written Alembic migration
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02-PLAN.md — SourceAdapter seam + tri-state RSS fetcher, append-only snapshot store, FRBP source seed, captured feed fixtures
+- [ ] 01-02-PLAN.md — Verify the authoritative FRBP rulemaking source (blocking), SourceAdapter seam + tri-state fetcher, append-only snapshot store, FRBP source seed, captured live-snapshot fixtures
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 01-03-PLAN.md — Hash-gate change detection + difflib textual diff producing `detected` Change records; shared fetch→detect pipeline orchestrator
+- [ ] 01-03-PLAN.md — Hash-gate change detection + difflib textual diff producing `detected` Change records; shared fetch→detect pipeline orchestrator; behavioral no-branch proof
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 01-04-PLAN.md — Anthropic structured-output AI summary (diff-grounded, server-set not-legal-advice label) advancing Change to `processed`
+- [ ] 01-04-PLAN.md — Verify the anthropic SDK structured-output call (blocking), AI summary advancing Change to `processed` (off-event-loop, with `summary_failed` failure state + retry), admin CLI, live-integration verification
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 01-05-PLAN.md — Review-queue API (approve/edit/reject) + read-only pull delivery API for verified changes + React/Vite review-queue SPA
+- [ ] 01-05-PLAN.md — API-key-authenticated review-queue API (approve/edit/reject/retry) + read-only pull delivery API with since-cursor + React/Vite review-queue SPA
 
 **UI hint**: yes
 
