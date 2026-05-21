@@ -3,9 +3,14 @@
 The database URL is read from brm.config.Settings (pydantic-settings) so it
 picks up the .env file automatically.  Models are imported before `run_migrations`
 is called so that Base.metadata contains all table definitions.
+
+Windows note: psycopg 3 async requires SelectorEventLoop; Windows defaults to
+ProactorEventLoop.  We force SelectorEventLoop on Windows below.
 """
 
 import asyncio
+import selectors
+import sys
 from logging.config import fileConfig
 
 from alembic import context
@@ -82,4 +87,13 @@ async def run_migrations_online() -> None:
 if context.is_offline_mode():
     run_migrations_offline()
 else:
-    asyncio.run(run_migrations_online())
+    # psycopg 3 async requires SelectorEventLoop.
+    # Windows 3.8+ defaults to ProactorEventLoop which is incompatible.
+    # Pass loop_factory to asyncio.run() to use a compatible event loop.
+    if sys.platform == "win32":
+        asyncio.run(
+            run_migrations_online(),
+            loop_factory=lambda: asyncio.SelectorEventLoop(selectors.SelectSelector()),
+        )
+    else:
+        asyncio.run(run_migrations_online())

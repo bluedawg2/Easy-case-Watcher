@@ -12,8 +12,16 @@ Test-DB creation mechanism (single, authoritative):
 - `brm_test` is created by `scripts/init-test-db.sql` mounted into
   `/docker-entrypoint-initdb.d/` of the `db` compose service.
 - There is no POSTGRES_DB override and no second compose service.
+
+Windows note (psycopg 3 compatibility):
+- psycopg 3 async requires SelectorEventLoop; Windows defaults to
+  ProactorEventLoop. We patch asyncio at import time so all async test
+  code runs on the correct event loop.
 """
 
+import asyncio
+import selectors
+import sys
 from typing import AsyncGenerator
 
 import pytest
@@ -30,10 +38,35 @@ from sqlalchemy.ext.asyncio import (
 from brm.config import settings
 
 # ---------------------------------------------------------------------------
+# Windows: ensure psycopg-compatible event loop for all async tests
+# ---------------------------------------------------------------------------
+
+@pytest.fixture(scope="session")
+def event_loop_policy():
+    """Override pytest-asyncio's default event loop policy.
+
+    psycopg 3 async cannot use Windows' default ProactorEventLoop.
+    Return a policy that creates SelectorEventLoops so that all async
+    test coroutines (and the engine connections they open) work correctly.
+    On non-Windows platforms this fixture is a no-op (returns the default).
+    """
+    if sys.platform == "win32":
+
+        class SelectSelectorPolicy(asyncio.DefaultEventLoopPolicy):
+            def new_event_loop(self):
+                return asyncio.SelectorEventLoop(selectors.SelectSelector())
+
+        return SelectSelectorPolicy()
+    return asyncio.DefaultEventLoopPolicy()
+
+# ---------------------------------------------------------------------------
 # Test-database URL — swap the database name to `brm_test`
 # ---------------------------------------------------------------------------
 
-_test_db_url = settings.database_url.replace("/brm", "/brm_test", 1)
+# Replace only the database name (the last path component), not the username.
+# The URL is: postgresql+psycopg://brm:brm@localhost:5432/brm
+# We want:    postgresql+psycopg://brm:brm@localhost:5432/brm_test
+_test_db_url = settings.database_url.rstrip("/").rsplit("/", 1)[0] + "/brm_test"
 _test_engine = create_async_engine(
     _test_db_url,
     echo=False,
