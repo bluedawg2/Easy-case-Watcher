@@ -1,0 +1,50 @@
+[project]
+name = "brm"
+version = "0.1.0"
+description = "Bankruptcy Rule Monitor — automated rule-change tracking service"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.136.1",
+    "uvicorn[standard]==0.47.0",
+    "sqlalchemy==2.0.49",
+    "alembic==1.18.4",
+    "psycopg[binary]==3.3.4",
+    "pydantic==2.13.4",
+    "pydantic-settings",
+    "anthropic==0.103.1",
+    "feedparser==6.0.12",
+    "httpx==0.28.1",
+    "selectolax",
+]
+
+[project.scripts]
+brm-run-pipeline = "brm.run_pipeline:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/brm"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "live: opt-in live integration test against real external services",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.3.0",
+    "respx>=0.23.1",
+    "ruff>=0.15.14",
+]
