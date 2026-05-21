@@ -43,7 +43,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — Backend scaffold (uv/FastAPI), Docker Postgres 16, core domain models (Source, Snapshot, Change with separate date fields), lifecycle guard with `summary_failed` state, hand-written Alembic migration
+- [x] 01-01-PLAN.md — Backend scaffold (uv/FastAPI), Docker Postgres 16, core domain models (Source, Snapshot, Change with separate date fields), lifecycle guard with `summary_failed` state, hand-written Alembic migration
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -232,7 +232,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. End-to-End Feed Slice | 0/5 | Not started | - |
+| 1. End-to-End Feed Slice | 1/5 | In Progress|  |
 | 2. HTML Scraping & Source Health | 0/5 | Not started | - |
 | 3. PDF Ingestion & District Coverage | 0/4 | Not started | - |
 | 4. Adaptive Polling & Deduplication | 0/3 | Not started | - |

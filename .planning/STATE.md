@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 1 UI-SPEC approved
-last_updated: "2026-05-21T08:09:47.928Z"
-last_activity: 2026-05-21 -- Phase 01 planning complete
+last_updated: "2026-05-21T16:35:22.389Z"
+last_activity: 2026-05-21
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 5
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-05-20)
 ## Current Position
 
 Phase: 1 of 8 (End-to-End Feed Slice)
-Plan: 0 of 5 in current phase
+Plan: 1 of 5 in current phase
 Status: Ready to execute
-Last activity: 2026-05-21 -- Phase 01 planning complete
+Last activity: 2026-05-21
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 1 P1 | 31min | 2 tasks | 19 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,11 @@ Recent decisions affecting current work:
 
 - Roadmap: Vertical MVP structure — Phase 1 pushes one RSS source end-to-end through the full pipeline; later phases widen source coverage and deepen each stage.
 - Roadmap: Hard ordering preserved — snapshots before diffing, classification before routing; vertical slices sequenced so each builds on a working prior slice.
+- [Phase ?]: VARCHAR+CHECK for lifecycle status (not native PG ENUM) so taxonomy gains values in Phases 5/6 without ALTER TYPE migrations
+- [Phase ?]: Hand-written initial Alembic migration guarantees CheckConstraints and indexes that autogenerate routinely omits (review finding #19)
+- [Phase ?]: UNIQUE(source_id, version) on Snapshot converts version-number race condition into hard DB integrity error (review finding #5)
+- [Phase ?]: summary_failed lifecycle state is Phase-1 operational-safety state: AI failures are never invisible (review finding #3)
+- [Phase ?]: No polling scheduler in Phase 1: polling_cadence column exists but un-driven; Procrastinate is Phase 4 per ROADMAP
 
 ### Pending Todos
 
@@ -84,6 +90,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-21T04:40:25.430Z
+Last session: 2026-05-21T16:35:22.371Z
 Stopped at: Phase 1 UI-SPEC approved
-Resume file: .planning/phases/01-end-to-end-feed-slice/01-UI-SPEC.md
+Resume file: None

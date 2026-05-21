@@ -9,8 +9,8 @@ Requirements for the initial release. Each maps to a roadmap phase.
 
 ### Source Registry & Coverage
 
-- [ ] **SRC-01**: A curated source registry holds one record per monitored source — jurisdiction, layer, authoritative URL/feed, ingestion method, parser/adapter reference, polling cadence, last-checked, last-changed, and health status
-- [ ] **SRC-02**: v1 covers the national layer — Bankruptcy Code (Title 11), Federal Rules of Bankruptcy Procedure, and Official Forms
+- [x] **SRC-01**: A curated source registry holds one record per monitored source — jurisdiction, layer, authoritative URL/feed, ingestion method, parser/adapter reference, polling cadence, last-checked, last-changed, and health status
+- [x] **SRC-02**: v1 covers the national layer — Bankruptcy Code (Title 11), Federal Rules of Bankruptcy Procedure, and Official Forms
 - [ ] **SRC-03**: v1 covers an initial tranche of ~3 federal bankruptcy court districts — local rules, standing orders, and general orders
 - [ ] **SRC-04**: v1 covers state exemption rules for the launch states only — the states that contain the v1 district tranche
 - [ ] **SRC-05**: Source health monitoring distinguishes "checked, no change" from "checked, error" from "not checked," and alerts internally on staleness or layout drift
@@ -51,8 +51,8 @@ Requirements for the initial release. Each maps to a roadmap phase.
 
 ### Effective-Date Handling
 
-- [ ] **EFF-01**: Each change records detected date and effective date as separate fields
-- [ ] **EFF-02**: A change progresses through a lifecycle state machine — detected → classified → (review | auto-routed) → verified → active or pending-effective → superseded
+- [x] **EFF-01**: Each change records detected date and effective date as separate fields
+- [x] **EFF-02**: A change progresses through a lifecycle state machine — detected → classified → (review | auto-routed) → verified → active or pending-effective → superseded
 - [ ] **EFF-03**: A verified change with a future effective date stays pending-effective and is not treated as in force
 - [ ] **EFF-04**: A monitored scheduler automatically transitions a pending-effective change to active on its effective date
 - [ ] **EFF-05**: A pending-effective change can be revised or withdrawn before it activates (postponement / withdrawal)
@@ -116,8 +116,8 @@ Which phases cover which requirements. Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SRC-01 | Phase 1 | Pending |
-| SRC-02 | Phase 1 | Pending |
+| SRC-01 | Phase 1 | Complete |
+| SRC-02 | Phase 1 | Complete |
 | INGEST-01 | Phase 1 | Pending |
 | INGEST-04 | Phase 1 | Pending |
 | INGEST-05 | Phase 1 | Pending |
@@ -128,8 +128,8 @@ Which phases cover which requirements. Populated during roadmap creation.
 | AI-06 | Phase 1 | Pending |
 | ROUTE-03 | Phase 1 | Pending |
 | ROUTE-04 | Phase 1 | Pending |
-| EFF-01 | Phase 1 | Pending |
-| EFF-02 | Phase 1 | Pending |
+| EFF-01 | Phase 1 | Complete |
+| EFF-02 | Phase 1 | Complete |
 | API-01 | Phase 1 | Pending |
 | API-07 | Phase 1 | Pending |
 | INGEST-02 | Phase 2 | Pending |
