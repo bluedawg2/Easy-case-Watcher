@@ -116,13 +116,57 @@ Which phases cover which requirements. Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmapper) | — | Pending |
+| SRC-01 | Phase 1 | Pending |
+| SRC-02 | Phase 1 | Pending |
+| INGEST-01 | Phase 1 | Pending |
+| INGEST-04 | Phase 1 | Pending |
+| INGEST-05 | Phase 1 | Pending |
+| DETECT-01 | Phase 1 | Pending |
+| DETECT-02 | Phase 1 | Pending |
+| AI-01 | Phase 1 | Pending |
+| AI-03 | Phase 1 | Pending |
+| AI-06 | Phase 1 | Pending |
+| ROUTE-03 | Phase 1 | Pending |
+| ROUTE-04 | Phase 1 | Pending |
+| EFF-01 | Phase 1 | Pending |
+| EFF-02 | Phase 1 | Pending |
+| API-01 | Phase 1 | Pending |
+| API-07 | Phase 1 | Pending |
+| INGEST-02 | Phase 2 | Pending |
+| INGEST-07 | Phase 2 | Pending |
+| SRC-05 | Phase 2 | Pending |
+| SRC-06 | Phase 2 | Pending |
+| DETECT-03 | Phase 2 | Pending |
+| INGEST-03 | Phase 3 | Pending |
+| SRC-03 | Phase 3 | Pending |
+| SRC-04 | Phase 3 | Pending |
+| INGEST-06 | Phase 4 | Pending |
+| AI-05 | Phase 4 | Pending |
+| AI-02 | Phase 5 | Pending |
+| AI-04 | Phase 5 | Pending |
+| ROUTE-01 | Phase 5 | Pending |
+| ROUTE-02 | Phase 5 | Pending |
+| ROUTE-05 | Phase 5 | Pending |
+| EFF-03 | Phase 6 | Pending |
+| EFF-04 | Phase 6 | Pending |
+| EFF-05 | Phase 6 | Pending |
+| EFF-06 | Phase 6 | Pending |
+| API-04 | Phase 6 | Pending |
+| API-02 | Phase 7 | Pending |
+| API-03 | Phase 7 | Pending |
+| API-05 | Phase 7 | Pending |
+| API-06 | Phase 7 | Pending |
+| AUDIT-05 | Phase 7 | Pending |
+| AUDIT-01 | Phase 8 | Pending |
+| AUDIT-02 | Phase 8 | Pending |
+| AUDIT-03 | Phase 8 | Pending |
+| AUDIT-04 | Phase 8 | Pending |
 
 **Coverage:**
 - v1 requirements: 45 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 45 ⚠️
+- Mapped to phases: 45 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-05-20*
-*Last updated: 2026-05-20 after initial definition*
+*Last updated: 2026-05-20 after roadmap creation*
