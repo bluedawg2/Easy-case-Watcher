@@ -208,6 +208,13 @@ Before running Task 3 verification, the developer needs:
 - The FRBP source row seed and ingest adapter implementation (plan 01-02) depends on the Source/Snapshot/Change models from this plan
 - All downstream plans (01-02 through 01-05) can import `brm.models`, `brm.lifecycle`, `brm.db`, and `brm.config` without modification
 
+## Self-Check: PASSED
+
+All created files verified present on disk. All commits verified in git log:
+- `8fd9e33` — feat(01-01): scaffold uv project, Postgres container, async DB layer
+- `5378e1a` — feat(01-01): define domain models, lifecycle guard, hand-written initial migration
+- `c5a3f03` — docs(01-01): complete walking skeleton foundation plan (this metadata commit)
+
 ---
 *Phase: 01-end-to-end-feed-slice*
 *Completed: 2026-05-21*
