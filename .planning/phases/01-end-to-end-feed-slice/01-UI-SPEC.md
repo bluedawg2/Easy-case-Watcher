@@ -1,10 +1,11 @@
 ---
 phase: 1
 slug: end-to-end-feed-slice
-status: draft
+status: approved
 shadcn_initialized: false
 preset: "shadcn/ui — New York style, neutral base, CSS variables (applied during plan 01-05 web/ scaffold)"
 created: 2026-05-20
+reviewed_at: 2026-05-20T00:00:00Z
 ---
 
 # Phase 1 — UI Design Contract
