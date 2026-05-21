@@ -581,21 +581,24 @@ function useReviewAction() {
 | A3 | `client.messages.parse()` exists and accepts a Pydantic model in `anthropic` 0.103.1 | Pattern 6 | Medium — `parse()` is documented in the GA structured-outputs page; if the exact helper name differs in 0.103.1, fall back to `messages.create()` with `output_config`. Planner should verify against the installed SDK at implementation time. |
 | A4 | FRBP amendments effective Dec 1, 2026 (Rules 1007/3018/5009/9006/9014/9017/new 7043) are accurate fixture material | FRBP Feed Identification | Low — read directly off the pending-amendments page; even if revised, fixtures only need to be *realistic*, not legally current. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Lifecycle `status` storage — native PG ENUM vs VARCHAR+CHECK**
    - What we know: the lifecycle enum will gain values in Phases 5/6; native PG enums are awkward to alter via Alembic.
    - What's unclear: team preference for DB-enforced enum vs app-enforced.
    - Recommendation: VARCHAR + CHECK constraint (extensible). Planner should decide explicitly in plan 01-01.
+   - **RESOLVED:** VARCHAR + CHECK constraint, per plan 01-01 Task 2 (hand-written initial migration includes the status CHECK).
 
 2. **Snapshot `raw_content` vs normalized-only**
    - What we know: ROUTE-03 wants the reviewer to see "the snapshot"; D-09/discretion leaves retention to standard approaches.
    - What's unclear: whether the reviewer needs the raw feed XML or the normalized text suffices.
    - Recommendation: store normalized content for Phase 1 (sufficient for the diff + a "view snapshot" panel); add `raw_content` only if a reviewer need emerges.
+   - **RESOLVED:** normalized content only for Phase 1, per plan 01-02 Task 4.
 
 3. **Reviewer identity capture**
    - What we know: full attribution is Phase 8; Claude's discretion allows a minimal default.
    - Recommendation: a free-text `reviewer_name` field on the approve/reject action, stored on the Change row. No login, no user table.
+   - **RESOLVED:** free-text `reviewer_name` on the Change row, per plan 01-05 Task 1. No login or user table.
 
 ## Environment Availability
 
