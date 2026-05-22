@@ -17,7 +17,10 @@ Key design choices:
 - idx_change_updated_at index: backs the since-cursor incremental pull query.
 """
 
+from __future__ import annotations
+
 from datetime import UTC, date, datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import (
     CheckConstraint,
@@ -27,10 +30,14 @@ from sqlalchemy import (
     Text,
 )
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from brm.db import Base
 from brm.lifecycle import ALL_STATUSES, STATUS_DETECTED
+
+if TYPE_CHECKING:
+    from brm.models.snapshot import Snapshot
+    from brm.models.source import Source
 
 
 class Change(Base):
@@ -115,6 +122,15 @@ class Change(Base):
         default=lambda: datetime.now(UTC),
         server_default="now()",
         onupdate=lambda: datetime.now(UTC),
+    )
+
+    # Relationships — lazy="raise" to prevent silent N+1 queries.
+    # Callers must explicitly eager-load via selectinload() or refresh().
+    source: Mapped[Source] = relationship(
+        "Source", foreign_keys=[source_id], lazy="raise"
+    )
+    current_snapshot: Mapped[Snapshot] = relationship(
+        "Snapshot", foreign_keys=[current_snapshot_id], lazy="raise"
     )
 
     def __repr__(self) -> str:
