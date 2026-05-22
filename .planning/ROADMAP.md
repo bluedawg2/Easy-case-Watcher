@@ -101,14 +101,25 @@ Plans:
   4. The source registry covers state exemption rules for the launch states containing the v1 district tranche
   5. A real PDF-based rule change from a district source flows end-to-end and appears in the review queue
 
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
 
-- [ ] 03-01: PDF fetcher adapter — text-layer detection, OCR routing, extraction validation
-- [ ] 03-02: PDF-specific text normalization (de-hyphenation, line numbers, ligatures, tabular data)
-- [ ] 03-03: District tranche source onboarding — local rules, general orders, standing orders per district
-- [ ] 03-04: Launch-state exemption source onboarding (legislative + statute sources)
+**Wave 1**
+
+- [ ] 03-01-PLAN.md — PDF extraction core: install pypdfium2/pdfplumber, 0002 migration (source_pattern + pdf_provenance), FetchResult.reason_code, two-axis scanned-vs-broken classifier, PDF fixtures
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [ ] 03-02-PLAN.md — PDF text normalization (de-hyphenation, line numbers, ligatures) + PdfSourceAdapter document mode flowing end-to-end through run_ingest
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [ ] 03-03-PLAN.md — Index/listing adapter mode + pdf_provenance stamping, ~3-district tranche onboarding, criterion-5 Oregon LBR end-to-end replay
+
+**Wave 4** *(blocked on Wave 3)*
+
+- [ ] 03-04-PLAN.md — Launch-state exemption source onboarding (OR/CA/TX), selective pdfplumber tabular extraction, exemption text-change detection
 
 ### Phase 4: Adaptive Polling & Deduplication
 
