@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-05-20)
 Phase: 1 of 8 (End-to-End Feed Slice)
 Plan: 3 of 5 in current phase
 Status: Ready to execute
-Last activity: 2026-05-22
+Last activity: 2026-05-22 - Completed quick task 260522-2kq: Fix Windows psycopg async event loop incompatibility
 
 Progress: [██████░░░░] 60%
 
@@ -80,6 +80,12 @@ None yet.
 - Phase 5 needs phase-level research: prompt design for the bankruptcy taxonomy, grounding strategies for legal text, and the extraction schema for fees/exemption amounts/form numbers.
 - Phase 6 needs a design decision: relative effective-date phrase resolution (resolver logic vs escalation path).
 - Initial district source tranche selection is an open decision to be made before Phase 3.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260522-2kq | Fix Windows psycopg async event loop incompatibility | 2026-05-22 | 8dbba70 | [260522-2kq-fix-windows-psycopg-async-event-loop-inc](./quick/260522-2kq-fix-windows-psycopg-async-event-loop-inc/) |
 
 ## Deferred Items
 
