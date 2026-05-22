@@ -14,7 +14,7 @@ INSERT-only: this module contains no UPDATE or DELETE statements.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
@@ -62,7 +62,7 @@ async def store_snapshot(
             content=content,
             content_hash=content_hash,
             version=next_version,
-            fetched_at=datetime.utcnow(),
+            fetched_at=datetime.now(UTC),
         )
         session.add(snapshot)
 

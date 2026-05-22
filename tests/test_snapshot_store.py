@@ -76,7 +76,7 @@ async def test_store_snapshot_append_only():
 @pytest.mark.asyncio
 async def test_store_snapshot_unique_constraint(db_session):
     """Manually inserting a duplicate (source_id, version) raises IntegrityError."""
-    from datetime import datetime
+    from datetime import UTC, datetime
 
     from sqlalchemy.exc import IntegrityError
 
@@ -97,7 +97,7 @@ async def test_store_snapshot_unique_constraint(db_session):
         content="first snapshot",
         content_hash="hash_a",
         version=1,
-        fetched_at=datetime.utcnow(),
+        fetched_at=datetime.now(UTC),
     )
     db_session.add(snap_a)
     await db_session.flush()
@@ -108,7 +108,7 @@ async def test_store_snapshot_unique_constraint(db_session):
         content="second snapshot same version",
         content_hash="hash_b",
         version=1,
-        fetched_at=datetime.utcnow(),
+        fetched_at=datetime.now(UTC),
     )
     db_session.add(snap_b)
     with pytest.raises(IntegrityError):

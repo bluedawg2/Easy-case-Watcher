@@ -17,7 +17,7 @@ Key design choices:
 - idx_change_updated_at index: backs the since-cursor incremental pull query.
 """
 
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 
 from sqlalchemy import (
     CheckConstraint,
@@ -107,14 +107,14 @@ class Change(Base):
 
     created_at: Mapped[datetime] = mapped_column(
         nullable=False,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(UTC),
         server_default="now()",
     )
     updated_at: Mapped[datetime] = mapped_column(
         nullable=False,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(UTC),
         server_default="now()",
-        onupdate=datetime.utcnow,
+        onupdate=lambda: datetime.now(UTC),
     )
 
     def __repr__(self) -> str:

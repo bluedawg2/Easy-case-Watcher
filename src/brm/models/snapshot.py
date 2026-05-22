@@ -9,7 +9,7 @@ in store_snapshot into a hard DB error instead of silent lineage corruption
 cleanly and can be retried.
 """
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy import ForeignKey, Index, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
@@ -47,7 +47,7 @@ class Snapshot(Base):
     fetched_at: Mapped[datetime] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         nullable=False,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(UTC),
         server_default="now()",
     )
 

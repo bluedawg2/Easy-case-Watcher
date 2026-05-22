@@ -4,7 +4,7 @@ One row per monitored source: jurisdiction, layer, feed URL, ingestion method,
 adapter reference, polling cadence, fetch-state bookkeeping, and typed health.
 """
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy import CheckConstraint, String
 from sqlalchemy.orm import Mapped, mapped_column
@@ -73,7 +73,7 @@ class Source(Base):
 
     created_at: Mapped[datetime] = mapped_column(
         nullable=False,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(UTC),
         server_default="now()",
     )
 
