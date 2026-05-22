@@ -16,17 +16,27 @@ Design (D-03, D-04, review finding #20):
 
 from __future__ import annotations
 
+import asyncio
+import re
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from brm.ai.summarize import SUMMARY_MODEL, summarize
 from brm.detect.detector import detect_change
 from brm.detect.diff import content_hash
 from brm.ingest.outcome import FetchOutcome
 from brm.ingest.snapshot_store import store_snapshot
+from brm.lifecycle import (
+    STATUS_PROCESSED,
+    STATUS_SUMMARY_FAILED,
+    IllegalTransitionError,
+    assert_transition,
+)
 from brm.models.snapshot import Snapshot
+from brm.schemas.summary import NOT_LEGAL_ADVICE_LABEL, ChangeSummary
 
 if TYPE_CHECKING:
     from brm.ingest.adapter import SourceAdapter
@@ -103,4 +113,60 @@ async def run_ingest(
     if result.raw_last_modified is not None:
         source.last_modified_http = result.raw_last_modified
 
+    return change
+
+
+async def run_summarize(session: AsyncSession, change: "Change") -> "Change":
+    """Run the AI summarization step for a detected Change.
+
+    Calls the Anthropic API via summarize(), records the structured result on
+    the Change row, and transitions the lifecycle status to processed or
+    summary_failed.
+
+    Args:
+        session: An active AsyncSession (caller manages transaction).
+        change:  A Change row with status "detected" or "summary_failed".
+                 The row must have diff_text populated.
+
+    Returns:
+        The same Change object with updated status, summary, and related fields.
+
+    Raises:
+        ValueError: If change.diff_text is empty or None.
+        IllegalTransitionError: If change.status cannot transition to processed
+                                (e.g. status is "in_review" or "verified").
+                                This propagates — callers must pass a valid Change.
+    """
+    if not change.diff_text:
+        raise ValueError(f"Change {change.id} has no diff_text — cannot summarize.")
+
+    # Reject invalid starting states via lifecycle guard.
+    # assert_transition raises IllegalTransitionError if current status can't go to
+    # STATUS_PROCESSED.  Both "detected" and "summary_failed" are allowed → processed;
+    # anything else raises.
+    assert_transition(change.status, STATUS_PROCESSED)
+
+    # Parse current retry count from summary_error if it exists.
+    retry_count = 0
+    if change.summary_error:
+        m = re.search(r"retry_count=(\d+)", change.summary_error)
+        if m:
+            retry_count = int(m.group(1))
+
+    try:
+        result: ChangeSummary = await asyncio.wait_for(
+            asyncio.to_thread(summarize, change.diff_text),
+            timeout=60.0,
+        )
+        change.summary = result.model_dump()
+        change.not_legal_advice_label = NOT_LEGAL_ADVICE_LABEL
+        change.model_id = SUMMARY_MODEL
+        change.summary_error = None
+        change.status = STATUS_PROCESSED
+    except Exception as exc:
+        retry_count += 1
+        change.summary_error = f"{type(exc).__name__}: {exc} retry_count={retry_count}"
+        change.status = STATUS_SUMMARY_FAILED
+
+    await session.flush()
     return change

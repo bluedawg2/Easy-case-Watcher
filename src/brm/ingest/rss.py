@@ -217,7 +217,79 @@ async def fetch_source(source: "Source") -> FetchResult:
 
 
 class FrbpSourceAdapter:
-    """SourceAdapter implementation for the FRBP rulemaking page."""
+    """SourceAdapter implementation for the FRBP rulemaking page.
+
+    Args:
+        feed_file: Optional path to a local HTML fixture file.  When provided,
+                   the file bytes are used in place of a live HTTP fetch so that
+                   the same normalization / parse code path runs offline (e.g.
+                   admin CLI fixture replay or manual testing without network).
+    """
+
+    def __init__(self, feed_file: str | None = None) -> None:
+        self._feed_file = feed_file
 
     async def fetch(self, source: "Source") -> FetchResult:
+        if self._feed_file is not None:
+            return await _fetch_from_file(self._feed_file, source)
         return await fetch_source(source)
+
+
+async def _fetch_from_file(feed_file: str, source: "Source") -> FetchResult:
+    """Return a FetchResult built from a local HTML fixture file.
+
+    Reads the file, runs the same parse/normalize/hash code path as
+    fetch_source(), and applies the same UNCHANGED / CHANGED logic against
+    source.last_content_hash.
+    """
+    from pathlib import Path
+
+    try:
+        body = Path(feed_file).read_bytes()
+    except OSError as exc:
+        return FetchResult(
+            outcome=FetchOutcome.FETCH_FAILED,
+            content=None,
+            raw_etag=None,
+            raw_last_modified=None,
+            error=f"Could not read fixture file {feed_file!r}: {exc}",
+        )
+
+    if not body:
+        return FetchResult(
+            outcome=FetchOutcome.FETCH_FAILED,
+            content=None,
+            raw_etag=None,
+            raw_last_modified=None,
+            error="Fixture file is empty",
+        )
+
+    entries = parse_entries(body)
+    if not entries:
+        return FetchResult(
+            outcome=FetchOutcome.FETCH_FAILED,
+            content=None,
+            raw_etag=None,
+            raw_last_modified=None,
+            error="No amendment entries found in fixture file",
+        )
+
+    normalized_text = normalize(entries)
+    file_hash = hashlib.sha256(normalized_text.encode()).hexdigest()
+
+    if source.last_content_hash and file_hash == source.last_content_hash:
+        return FetchResult(
+            outcome=FetchOutcome.UNCHANGED,
+            content=None,
+            raw_etag=None,
+            raw_last_modified=None,
+            error=None,
+        )
+
+    return FetchResult(
+        outcome=FetchOutcome.CHANGED,
+        content=normalized_text,
+        raw_etag=None,
+        raw_last_modified=None,
+        error=None,
+    )
