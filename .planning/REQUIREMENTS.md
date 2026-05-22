@@ -28,8 +28,8 @@ Requirements for the initial release. Each maps to a roadmap phase.
 
 ### Change Detection
 
-- [ ] **DETECT-01**: System detects substantive changes between the prior and current snapshot, ignoring boilerplate, navigation, and timestamps
-- [ ] **DETECT-02**: A content-hash gate prevents unchanged content from triggering downstream processing
+- [x] **DETECT-01**: System detects substantive changes between the prior and current snapshot, ignoring boilerplate, navigation, and timestamps
+- [x] **DETECT-02**: A content-hash gate prevents unchanged content from triggering downstream processing
 - [ ] **DETECT-03**: Duplicate detections of the same change (e.g., seen via both feed and scrape) are deduplicated
 
 ### AI Processing
@@ -121,8 +121,8 @@ Which phases cover which requirements. Populated during roadmap creation.
 | INGEST-01 | Phase 1 | Complete |
 | INGEST-04 | Phase 1 | Complete |
 | INGEST-05 | Phase 1 | Complete |
-| DETECT-01 | Phase 1 | Pending |
-| DETECT-02 | Phase 1 | Pending |
+| DETECT-01 | Phase 1 | Complete |
+| DETECT-02 | Phase 1 | Complete |
 | AI-01 | Phase 1 | Pending |
 | AI-03 | Phase 1 | Pending |
 | AI-06 | Phase 1 | Pending |
