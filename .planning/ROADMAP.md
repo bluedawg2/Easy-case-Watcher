@@ -47,7 +47,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02-PLAN.md — Verify the authoritative FRBP rulemaking source (blocking), SourceAdapter seam + tri-state fetcher, append-only snapshot store, FRBP source seed, captured live-snapshot fixtures
+- [x] 01-02-PLAN.md — Verify the authoritative FRBP rulemaking source (blocking), SourceAdapter seam + tri-state fetcher, append-only snapshot store, FRBP source seed, captured live-snapshot fixtures
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -232,7 +232,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. End-to-End Feed Slice | 1/5 | In Progress|  |
+| 1. End-to-End Feed Slice | 2/5 | In Progress|  |
 | 2. HTML Scraping & Source Health | 0/5 | Not started | - |
 | 3. PDF Ingestion & District Coverage | 0/4 | Not started | - |
 | 4. Adaptive Polling & Deduplication | 0/3 | Not started | - |

@@ -18,11 +18,11 @@ Requirements for the initial release. Each maps to a roadmap phase.
 
 ### Ingestion
 
-- [ ] **INGEST-01**: System ingests changes from RSS and official notice feeds
+- [x] **INGEST-01**: System ingests changes from RSS and official notice feeds
 - [ ] **INGEST-02**: System ingests changes by scraping court-website HTML pages
 - [ ] **INGEST-03**: System ingests and extracts text from PDF source documents
-- [ ] **INGEST-04**: Every fetch resolves to an explicit tri-state outcome — CHANGED, UNCHANGED, or FETCH_FAILED — so a silent failure is never read as "no change"
-- [ ] **INGEST-05**: Each successful fetch stores a versioned snapshot of the captured source content
+- [x] **INGEST-04**: Every fetch resolves to an explicit tri-state outcome — CHANGED, UNCHANGED, or FETCH_FAILED — so a silent failure is never read as "no change"
+- [x] **INGEST-05**: Each successful fetch stores a versioned snapshot of the captured source content
 - [ ] **INGEST-06**: Polling cadence is adaptive — daily by default, sub-daily for feed-backed sources, intensified around known upcoming effective dates
 - [ ] **INGEST-07**: Polling respects a per-source politeness ceiling to avoid rate-limiting and IP blocks
 
@@ -118,9 +118,9 @@ Which phases cover which requirements. Populated during roadmap creation.
 |-------------|-------|--------|
 | SRC-01 | Phase 1 | Complete |
 | SRC-02 | Phase 1 | Complete |
-| INGEST-01 | Phase 1 | Pending |
-| INGEST-04 | Phase 1 | Pending |
-| INGEST-05 | Phase 1 | Pending |
+| INGEST-01 | Phase 1 | Complete |
+| INGEST-04 | Phase 1 | Complete |
+| INGEST-05 | Phase 1 | Complete |
 | DETECT-01 | Phase 1 | Pending |
 | DETECT-02 | Phase 1 | Pending |
 | AI-01 | Phase 1 | Pending |
