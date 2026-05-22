@@ -29,7 +29,6 @@ import pytest_asyncio
 import respx
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import (
-    AsyncConnection,
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
