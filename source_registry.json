@@ -1,0 +1,10 @@
+{
+  "test1": {
+    "url": "http://example.com",
+    "jurisdiction": "test",
+    "layer": "test",
+    "content_selector": "body",
+    "rate_limit": 1,
+    "politeness_ceiling": 100
+  }
+}
